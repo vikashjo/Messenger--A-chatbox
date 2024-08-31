@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
+
+  before_action :set_user, only: [:show, :edit, :create, :destroy]
   def index
     @users = User.all
+  end
+
+  def show
   end
 
   def new
@@ -16,23 +21,29 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit 
+  end
+
   def update
     
     if @user.update(user_params)
       flash[:notice] = "User updated successfully"
-
+      redirect_to user_by_username_path(username: @user.username)
     else
       render 'new'
     end
   end
 
+  def destroy
+  end
+
   private
 
   def user_params
-    params.permit(:user).require(:username, :email, :password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(username: params[:username])
   end
 end

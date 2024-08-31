@@ -32,6 +32,10 @@
           <%= form.text_field :username,class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200" %>
       </div>
       <div class="input-box flex flex-col mt-4">
+        <%= form.label :email,class:"text-white font-semibold text-lg mb-3" %>
+          <%= form.email_field :email,class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200" %>
+      </div>
+      <div class="input-box flex flex-col mt-4">
         <%= form.label :password, class:"text-white font-semibold text-lg mb-3" %>
           <%= form.password_field :password, class:"bg-[#1c1c1c] p-3 outline-none border-solid border-2 border-gray-800 rounded-lg text-gray-200" %>
       </div>
@@ -47,7 +51,7 @@
 
             <div class="flex items-center mt-4">
               <h4 class="text-white font-normal text-lg">Already have an account?</h4>
-              
+              <%=link_to "Sign In" ,signin_path,class:"text-blue-600 pl-2 font-bold text-lg" %>
             </div>
 
   </div>
