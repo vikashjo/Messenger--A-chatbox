@@ -9,9 +9,11 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <script src="https://cdn.tailwindcss.com"></script>   
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   </head>
 
-  <body>
+  <body  class="w-full m-auto bg-[#121214]">
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
