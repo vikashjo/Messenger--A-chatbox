@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:show, :edit, :create, :destroy]
+
   def index
     @users = User.all
   end
@@ -16,6 +17,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = "User created successfully"
+      redirect_to root_path
     else
       render 'new'
     end
@@ -28,13 +30,17 @@ class UsersController < ApplicationController
     
     if @user.update(user_params)
       flash[:notice] = "User updated successfully"
-      redirect_to user_by_username_path(username: @user.username)
+      redirect_to root_path
     else
-      render 'new'
+      render 'edit'
     end
   end
 
   def destroy
+    @user.destroy
+    session[:user_id] = nil if @user == current_user
+    flash[:notice] = "User account deleted successfully"
+    redirect_to root_path
   end
 
   private
@@ -44,6 +50,6 @@ class UsersController < ApplicationController
   end
 
   def set_user
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(id: params[:id])
   end
 end
