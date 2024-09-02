@@ -1,0 +1,22 @@
+<div class="cont-<%= message.user.id %>">
+  <!-- <p><%= time_ago_in_words(message.created_at) %> ago</p> -->
+  <div class="flex flex-col">
+  <div class="flex items-center justify-between mb-1.5" style="width:fit-content">
+  <span class="text-[.9rem] text-gray-400"><%= message.created_at.strftime("%l:%M %P") %></span>
+  <i class="fa fa-ellipsis-h cursor-pointer text-[.9rem] text-gray-400 ml-3" aria-hidden="true"></i>
+</div>
+
+<% unless message.group.is_private %>
+<span class="text-[#cfcecea9] text-[.9rem] font-semibold mb-2">
+  @<%= message.user.username %>
+</span>
+<% end %>
+  <div class="message-box msg-<%= message.user.id %> ">
+        <div>
+          <P>
+            <%= message.body %>
+              <p>
+        </div>
+  </div>
+  </div>  
+</div>

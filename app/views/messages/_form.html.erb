@@ -1,0 +1,18 @@
+<%= form_with(model: message, local: true) do |form| %>
+  <% if message.errors.any? %>
+    <div id="error_explanation" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+      <h2 class="font-semibold"><%= pluralize(message.errors.count, "error") %> prohibited this message from being saved:</h2>
+      <ul class="list-disc pl-5">
+        <% message.errors.full_messages.each do |error_message| %>
+          <li><%= error_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <input type="hidden" name="message[chatroom_id]" value="<%= @chatroom.id %>">
+  
+  <div class="flex items-center">
+    <input type="text" name="message[body]" placeholder="Type your message here..." class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:ring focus:ring-blue-200 mr-2">
+    <input type="submit" value="Add Message" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-200">
+  </div>
+<% end %>

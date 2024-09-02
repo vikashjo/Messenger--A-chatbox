@@ -1,1 +1,52 @@
-<h1 class="text-white">This is the root route</h1>
+
+<div class="w-1/4 bg-black-100 p-4">
+  <p class="text-white">Hello, <%=current_user.username %> </p>
+</div>
+<div class="flex flex-row">
+  <div class=" my-4 border-gray-300 ">
+    <div class="navbar h-[100vh] w-[6rem] border-gray-800 border-r-[3px] flex flex-col justify-between items-center pt-5 pb-5">
+      <div class="flex flex-col items-center ">
+        <% @chatrooms.each do |chatroom| %>
+          <%= link_to chatroom_path(chatroom) do %>
+            <h2 class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"><%= chatroom.name %></h2>
+          <% end %>
+        <% end %> 
+      </div>
+    </div>
+  </div>
+
+  <div class=" w-3/4 p-4 ">
+    <% if @chatroom.present? %>
+      <div class="bg-white w-full ">
+        <nav class="flex flex-col justify-between bg-gray-800 mb-4">
+          <div class="text-lg font-semibold text-white ml-4">
+            <b><%= @chatroom.name %></b>
+          </div>
+          <small class="text-gray-400 ml-2"><%= @chatroom.users.uniq.count %> Members</small>
+        </nav>
+        <div class="flex flex-col space-y-4">
+          <% @chatroom.messages.each do |message| %>
+            <div class="flex <%= 'justify-end' if message.user == current_user %>">
+              <div class="flex flex-col space-y-1 <%= message.user == current_user ? 'items-end' : 'items-start' %>">
+                <div class="rounded-xl p-2 px-4 <%= message.user == current_user ? 'bg-blue-500 text-white' : 'bg-gray-200' %>">
+                  <%= message.body %>
+                </div>
+                <% if message.user != current_user %>
+                  <div class="text-sm font-low text-gray-500 ml-2"> 
+                    <%= message.user.username %> 
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+
+
+        <div class=" bottom-0 mb-4">
+          <%= render 'messages/form', message: Message.new, room: @room %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
